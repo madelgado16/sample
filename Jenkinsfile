@@ -14,11 +14,12 @@ pipeline {
     stage('Test') {
       steps {
         powershell 'npm test'
+        emailext(subject: 'Aprobar', body: 'Por favor aprueba', attachLog: true, to: 'moi')
       }
     }
     stage('approve') {
       steps {
-        input(message: '¿se aprueba?', submitter: 'moi')
+        input(message: 'Â¿se aprueba?', submitter: 'moi')
       }
     }
     stage('Deploy') {
