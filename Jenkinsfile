@@ -16,5 +16,15 @@ pipeline {
         powershell 'npm test'
       }
     }
+    stage('approve') {
+      steps {
+        input(message: '¿se aprueba?', submitter: 'moi')
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Succesful'
+      }
+    }
   }
 }
