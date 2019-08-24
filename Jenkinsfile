@@ -1,20 +1,25 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'node:6-alpine'
+      args '-p 3000:3000'
+    }
+
+  }
   stages {
     stage('install') {
       steps {
-        powershell 'npm install'
+        sh 'npm install'
       }
     }
     stage('Build') {
       steps {
-        powershell 'npm run build'
+        sh 'npm run build'
       }
     }
     stage('Test') {
       steps {
-        powershell 'npm test'
-        emailext(subject: 'Aprobar', body: 'Por favor aprueba', attachLog: true, to: 'moi')
+        sh 'npm test'
       }
     }
     stage('approve') {
